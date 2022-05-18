@@ -1,4 +1,5 @@
-# SET UP STEPS
+# FETCH REDDIT
+## SET UP STEPS
 - fork and clone this [repo](https://github.com/WDI-SEA/fetch-reddit-slideshow)
 - create js file 
 - connect js to html file
@@ -11,7 +12,7 @@ touch js/main.js
 code .
 ```
 Link the javascript file to the html file by including the script tag and setting the source to the relative path.
-In `index.html`, add this line to the "head" section:
+In `index.html`, add this line to the end of the body section:
 ```html
 <script src="./js/main.js"></script>
 ```
@@ -20,7 +21,154 @@ In `main.js`, add this line:
 ```js 
 console.log("FETCH!")
 ```
+Navigate to the browser and confirm you can see the html in the page, and the  message in the console. 
+## FETCH FROM REDDIT
 
+### !!! === CHECK IN === !!!
+can you see:
+- "Hello Front-End" in page
+- "FETCH" in console
+
+
+## CREATE FORM
+Things to think about:
+- html form elements ( button click test, semantic html )
+- javascript form behavior ( prevent default, save user input )
+
+
+Add html form elements to `index.html`:
+```html
+<form id="form">
+      <label for="searchInput">Enter term to search</label>
+      <input type="text" name="search" id="searchInput" placeholder="search term">
+      <input type="submit" value="submit">
+</form>
+```
+Now that we have workable html, baby step towards a button click. 
+
+
+Steps:
+- query DOM for button
+- save to variable
+- add event listener
+- log a string when button is clicked
+
+
+In `main.js`:
+```js
+const form = document.querySelector("#form")
+console.log(form)
+form.addEventListener("submit", function(e){
+    e.preventDefault()
+    console.log("click")
+})
+```
+
+
+Bigger step:
+- log input on button click
+
+In `main.js`, add second argument to console log:
+```js
+console.log("click", e.target.search.value)
+```
+
+### !!! === CHECK IN === !!!
+Can you see:
+- click message after button click
+- the submitted text in the console
+
+
+## CREATE AJAX REQUEST
+
+Beef up js submit function:
+- write a callback that will fetch to a specfied url
+- inside submit function invoke the callback
+
+
+API request functions are not one size fits all, here's one for fetching from "random user" which returns an array of objects:
+```js
+const randomUserFetch = function(url){
+    console.log(url)
+    fetch(url)
+        .then(response => response.json())
+        .then(jsonData => {
+            // console log the data to see how we need to drill into the obj, using "data", "results", ect
+            // randomUser api uses .results
+            console.log(jsonData.results, 'data in fetch')
+        })
+}
+randomUserFetch("https://randomuser.me/api/")
+```
+
+We can't access the "results" property on reddit data because that's not how it's structured. Let's try a different function:
+```js
+const redditFetch = function(url){
+    console.log(url)
+    fetch(url)
+        .then(response => response.json())
+        .then(jsonData => {
+            // console log the data to see how we need to drill into the obj, using "data", "results", ect
+            // reddit api uses .data
+            console.log(jsonData.data, 'data in fetch')
+            jsonData.data.children.forEach((item, index) => {
+                console.log(item.data, index)
+            })
+        })
+}
+redditFetch("http://www.reddit.com/search.json?q=cats+nsfw:no")
+```
+
+Now lets try to get the image urls to log in the console
+```js
+const redditFetch = function(url){
+    console.log(url)
+    const images = []
+    fetch(url)
+        .then(response => response.json())
+        .then(jsonData => {
+            jsonData.data.children.forEach((item, index) => {
+                if(item.data.preview) {
+                    images.push({img: item.data.preview.images[0].source.url})
+                }
+            })
+        })
+    console.log(images, 'images in arr')
+}
+
+const form = document.querySelector("#form")
+console.log(form, "this is the form el")
+
+form.addEventListener("submit", function(e){
+    e.preventDefault()
+    console.log("click", e.target.search.value)
+    const searchTerm = e.target.search.value
+    const url = `http://www.reddit.com/search.json?q=${searchTerm}+nsfw:no`
+    redditFetch(url)
+    e.target.search.value = ""
+})
+```
+
+
+### !!! === CHECK IN === !!!
+Can you see:
+- array of objects in console
+- urls as the value in each object
+
+
+## ADD REQUEST DATA TO DOM
+steps:
+- start by appending each of the images to the DOM
+- then append one at a time, and change it's source after an interval of time
+
+Add to `index.html`:
+```html
+<div id="form-container">
+```
+
+
+
+### !!! === CHECK IN === !!!
 
 
 

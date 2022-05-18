@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="./js/main.js"></script>
   <title>Hello Front-End</title>
 </head>
 <body>
   <h1>Hello Front-End</h1>
+  <div id="form-container">
+    <form id="form">
+      <label for="searchInput">Enter term to search</label>
+      <input type="text" name="search" id="search-input" placeholder="search term">
+      <input type="submit" value="submit">
+    </form>
+    <img src="https://placekitten.com/200/300" alt="image from reddit" visibility="hidden" display="none" id="img">
+  </div>
+  <script src="./js/main.js"></script>
 </body>
 </html>
