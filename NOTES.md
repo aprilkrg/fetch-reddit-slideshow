@@ -166,9 +166,87 @@ Add to `index.html`:
 <div id="form-container">
 ```
 
+## PLAN BROKE DOWN HERE
+
+I had a hard time solving for some of the image urls showing as broken on the DOM; spent a long time on that, then I wanted to change my approach cause I thought of better ways to organize it. 
+
+Now I'm going to try to implement an outline in my js:
+1.domcontentloaded 
+2.
+3.add event listener to form
+  A. callback function
+    i.
+    ii.
+    iii.
+    iv. fetch()
+    v.
+    vi.
+  B. fetch invoked
+    i.
+    ii.
+    iii. fetch data
+      a. 
+      b. 
+        1.
+          A.
+      c. 
+        1.
+        2.
+        3.
+      d. catch error
+4.add interval to image 
 
 
-### !!! === CHECK IN === !!!
+
+
+
+### code round up
+
+In `index.html`:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Front-End</title>
+</head>
+<body>
+  <div id="form-container">
+    <h1>Fetch a slideshow!</h1>
+    <!-- form -->
+    <form id="form">
+      <!-- instructions for user -->
+      <p>Find images from reddit by entering a word into the form below</p>
+      <label for="searchInput">Enter term to search</label>
+      <input type="text" name="search" id="search-input" placeholder="search term">
+      <input type="submit" value="submit">
+    </form>
+    <!-- image -->
+    <div id="img-container">
+      <img src="https://placekitten.com/200/300" alt="placeholder kitten image" id="img">
+    </div>
+    <button id="stop-btn">STOP FETCH</button>
+  </div>
+  <script src="./js/main.js"></script>
+</body>
+</html>
+```
+
+In `main.js`:
+```js
+
+```
+
+In ``:
+```
+```
+
+In ``:
+```
+```
+
+
 
 
 
