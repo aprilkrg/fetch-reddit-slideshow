@@ -57,12 +57,14 @@ const redditFetch = function(url){
 // redditFetch("http://www.reddit.com/search.json?q=cats+nsfw:no")
 
 
-// query DOM for input id 
+// === !!! query DOM for input id !!! ===
 // save queried element to variable
 const form = document.querySelector("#form")
 // console.log(form, "this is the form el")
 // set event listener on that variable
+// === !!! ADD EVENT LISTENER !!! ===
 form.addEventListener("submit", function(e){
+    // prevent default form behavior
     e.preventDefault()
     // console.log("click", e.target.search.value)
     const searchTerm = e.target.search.value
@@ -71,6 +73,12 @@ form.addEventListener("submit", function(e){
     // invoke fetch function with provided reddit url
     const resultImgs = redditFetch(url)
     // console.log(resultImgs, "fetch results in event listener")
-    // reset input box to blank value
+    // === !! hide form !! ===
+    form.style.display = "none"
+    // reset search target value
     e.target.search.value = ""
+})
+document.addEventListener("DOMContentLoaded", () => {
+    const kittenImg = document.querySelector("#img")
+    kittenImg.style.display = "none"
 })
