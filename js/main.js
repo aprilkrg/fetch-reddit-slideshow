@@ -10,6 +10,7 @@ let slideshowEl = document.querySelector("#slideshow")
 
 // access the images globally
 let resultImages
+let slideshowInterval
 
 function fetchReddit(e) {
     e.preventDefault()
@@ -36,7 +37,9 @@ function fetchReddit(e) {
             console.log("inside fetch", resultImages)
             // invoke a function and pass images as argument
             // slideshow(resultImages)
-            let slideshowInterval = setInterval(slideshow, 1000)
+            slideshowInterval = setInterval(() => {
+                slideshow(resultImages)
+            }, 3000)
 
         })
         .catch(console.warn)
@@ -63,6 +66,7 @@ function slideshow(resultImages) {
 let stopBtn = document.querySelector("#stopBtn")
 stopBtn.addEventListener("click", function(){
     console.log("stop")
+    clearInterval(slideshowInterval)
 })
 let submitBtn = document.querySelector("#submitBtn")
 submitBtn.addEventListener("click", fetchReddit)
