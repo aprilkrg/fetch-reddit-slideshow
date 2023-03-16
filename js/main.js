@@ -1,61 +1,41 @@
-/*
-===== FUNCTIONS =====
-// domcontentloaded (event listeners)
-// render (set DOM and page elements)
-// timer
-// change picture
-// stop timer & change picture
-// fetch images
-*/
+console.log("good morning developers")
+// fetch
+// triggered by submission of form
+// prevent default
+// fetch . then .catch
 
-/*
-===== DOM CONTENT VARIABLES =====
-// form input
-// form submit
-// stop button
-// image
-// interval object
-// fetched image array
-*/
+// select form input from dom 
+let formInput = document.querySelector("#formInput")
 
-const render = () => {
-    console.log("render invoked")
-    // select form
-    // set form display to block
-    // set form input value to string
-    // select img
-    // set img display to none
+function fetchReddit(e) {
+    e.preventDefault()
+    // placehold value - hardcoded right now, but later we'll use user input
+    // let value = "dogs" // testing only
+    // gather user input
+    console.log("input =>",formInput.value)
+
+    fetch(`http://www.reddit.com/search.json?q=${formInput.value}+nsfw:no`)
+        .then(result => result.json())
+        .then(results => {
+            console.log(results.data.children)
+            let resultImages = results.data.children.map(child => {
+                return {
+                    url: child.data.url,
+                    title: child.data.title
+                }
+            })
+            console.log(resultImages)
+        })
+        .catch(console.warn)
 }
+// fetchReddit() // used for testing only
 
-const stopFetch = () => {
-    console.log("stop the fetch")
-    // clear interval timer
-    // invoke render function
-}
+// select dom elements and dave to variables
+// create event listeners
 
-const formHandleSubmit = () => {
-    console.log("form submitted")
-    // pass event object
-    // prevent default form behavior
-    // save target search value to variable
-    // interpolate search variable into url
-    // pass url variable as param in invocation of reddit fetch function
-    // set form style display to none
-}
-
-const redditFetch = () => {
-    console.log("reddit fetching")
-    // set header options
-    // invoke fetch
-    // promise: jsonify response
-    // promise: map & filter jsonified data to images array
-    // promise: set interval to change img element src, select from images array
-    // catch errors like good devs
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM loaded")
-    // invoke render function
-    // add event listener to form (form handle submit)
-    // add event listener to stop button (stop fetch)
+let stopBtn = document.querySelector("#stopBtn")
+stopBtn.addEventListener("click", function(){
+    console.log("stop")
 })
+let submitBtn = document.querySelector("#submitBtn")
+submitBtn.addEventListener("click", fetchReddit)

@@ -1,3 +1,5 @@
 /* browser css reset */
-/* form container (flex, column) */
-/* img (max width & height, object fit) */
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
